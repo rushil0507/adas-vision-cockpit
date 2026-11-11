@@ -50,6 +50,10 @@ frontend/.env.*.local
 frontend/npm-debug.log*
 frontend/yarn-debug.log*
 
+# Netlify
+.netlify/
+.netlify
+
 # System
 .DS_Store
 Thumbs.db

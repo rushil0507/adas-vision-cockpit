@@ -1,0 +1,64 @@
+# Real-Time ADAS Pipeline Configuration
+
+source:
+  type: "file"                  # "file" | "webcam" | "rtsp"
+  path: "data/samples/demo.mp4" # Path to video file or stream URL / device index (e.g. 0)
+  loop: true                    # Loop video playback when ended
+
+inference:
+  device: "auto"                # "cpu", "cuda", or "auto"
+  imgsz: 640                    # Input frame resolution for YOLO
+  half: false                   # FP16 half precision (only on CUDA)
+
+pedestrian:
+  weights: "yolov8n.pt"         # COCO pretrained YOLOv8 model
+  conf: 0.40                    # Confidence threshold
+  iou: 0.45                     # NMS IOU threshold
+  tracker: "bytetrack.yaml"     # ByteTrack configuration
+  persist: true                 # Maintain persistent track IDs
+  focal_length_px: 800.0        # Camera focal length in pixels (for pinhole distance)
+  real_height_m: 1.70           # Average pedestrian height in meters
+  risk_distance_medium_m: 18.0  # Medium risk threshold (meters)
+  risk_distance_high_m: 8.0     # High risk threshold (meters)
+  approach_velocity_px: 1.5     # Vertical centroid velocity threshold toward vehicle (px/frame)
+  # Danger zone polygon coordinates [x, y] in standard 1280x720 space (auto-scaled to frame dims)
+  danger_zone:
+    - [220, 720]
+    - [520, 440]
+    - [760, 440]
+    - [1060, 720]
+
+signs:
+  detector: "weights/sign_det.pt"      # YOLO fine-tuned on GTSDB / traffic signs or fallback
+  classifier: "weights/sign_cls.pt"    # Small CNN classifier trained on GTSRB (43 classes)
+  conf: 0.50                           # Minimum sign detection confidence
+  iou: 0.45                            # Sign NMS IOU
+  smooth_frames: 5                     # Sliding window majority vote to eliminate flicker
+  crop_size: [48, 48]                  # Input resolution for classifier CNN
+  fallback_coco_signs: true            # Use COCO stop_sign (class 11) & traffic light if weights missing
+
+lanes:
+  mode: "classical"             # "classical" | "deep"
+  roi_top_ratio: 0.55           # Top of ROI trapezoid as ratio of frame height
+  lane_width_m: 3.70            # Standard lane width in meters
+  canny: [50, 150]              # Canny lower and upper thresholds
+  hls_white_thresh: 200         # HLS L-channel white threshold
+  hls_yellow_lower: [15, 60, 80]
+  hls_yellow_upper: [35, 255, 255]
+  sliding_windows: 9            # Number of sliding windows for polynomial fit
+  window_margin: 60             # Width of windows +/- margin
+  minpix: 40                    # Minimum pixels to recenter window
+  smoothing_frames: 5           # Moving average history for polynomial coefficients
+
+alerts:
+  lane_offset_m: 0.40           # Lane departure lateral offset threshold in meters
+  lane_consecutive_frames: 5    # Frames lane offset exceeded before alert triggers
+  cooldown_s: 3.0               # Minimum seconds between duplicate alerts
+  speed_limit_conf: 0.60        # Minimum confidence to update HUD speed limit
+
+api:
+  host: "0.0.0.0"
+  port: 8000
+  buffer_queue_size: 2          # Bounded queue size (drops oldest to minimize latency)
+  jpeg_quality: 75              # Streaming compression quality (1-100)
+

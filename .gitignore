@@ -1,0 +1,55 @@
+# Python & Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+.venv/
+env/
+
+# Pytest & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local SQLite Database & Logs
+*.db
+*.sqlite
+*.sqlite3
+adas_events.db
+*.log
+
+# Large Datasets and Trained Weights (YOLO auto-downloads weights on demand)
+*.pt
+weights/*.pt
+!weights/.gitkeep
+data/datasets/
+runs/
+
+# Node / React Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env.*.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+
+# System
+.DS_Store
+Thumbs.db

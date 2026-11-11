@@ -6,6 +6,8 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-009688.svg)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/React-18-61DAFB.svg)](https://react.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4-38B2AC.svg)](https://tailwindcss.com/)
+[![CI Pipeline](https://github.com/rushil0507/adas-vision-cockpit/actions/workflows/ci.yml/badge.svg)](https://github.com/rushil0507/adas-vision-cockpit/actions)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/rushil0507/adas-vision-cockpit)
 
 A modular, real-time vision system for dashcam footage, webcam devices, and RTSP live streams that executes:
 1. **Pedestrian Tracking & Danger Zone Risk Estimation**: YOLOv8 + ByteTrack persistent IDs with pinhole camera distance estimation and kinematics.

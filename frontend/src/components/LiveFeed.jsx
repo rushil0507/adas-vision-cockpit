@@ -29,10 +29,18 @@ export default function LiveFeed({ frameBase64, alerts = [], fps = 0 }) {
           className="w-full h-full object-contain"
         />
       ) : (
-        <div className="flex flex-col items-center justify-center space-y-3 text-slate-500">
+        <div className="flex flex-col items-center justify-center p-6 text-center space-y-3 text-slate-500 max-w-md">
           <VideoOff className="h-10 w-10 animate-pulse text-slate-600" />
-          <p className="text-sm font-medium">Waiting for WebSocket video stream...</p>
-          <span className="text-xs text-slate-600">Connecting to /ws/stream</span>
+          <p className="text-sm font-medium text-slate-300">
+            Waiting for WebSocket video stream...
+          </p>
+          <span className="text-xs text-slate-500">
+            Connecting to ADAS backend at <code>/ws/stream</code>
+          </span>
+          <div className="pt-2 text-[11px] text-slate-500 bg-slate-900/60 border border-brand-border/60 rounded-lg p-2.5">
+            <strong>Viewing on Netlify?</strong> Connect your local or cloud backend by clicking the{" "}
+            <span className="text-sky-400 font-semibold">Backend</span> button in the top navbar.
+          </div>
         </div>
       )}
 
